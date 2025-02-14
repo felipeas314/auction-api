@@ -7,9 +7,9 @@ public class Bid {
 
     private Long id;
 
-    private Long clienteId;
+    private Long clientId;
 
-    private Long leilaoId;
+    private Long auctionId;
 
     private BigDecimal price;
 
