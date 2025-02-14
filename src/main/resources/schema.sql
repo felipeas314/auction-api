@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS auction (
+    id SERIAL PRIMARY KEY,
+    description VARCHAR(255) NOT NULL,
+    initial_value DECIMAL(10,2) NOT NULL,
+    start_date TIMESTAMP NOT NULL,
+    end_date TIMESTAMP NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS cliente (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS bid (
+    id SERIAL PRIMARY KEY,
+    client_id BIGINT NOT NULL REFERENCES cliente(id),
+    auction_id BIGINT NOT NULL REFERENCES auction(id),
+    price DECIMAL(10,2) NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

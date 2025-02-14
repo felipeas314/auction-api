@@ -3,7 +3,11 @@ spring:
     url: r2dbc:postgresql://localhost:5432/auctiondb
     username: admin
     password: admin
-  flyway:
-    enabled: false
+  sql:
+    init:
+      mode: always
+  jpa:
+    hibernate:
+      ddl-auto: update
 server:
   port: 8080

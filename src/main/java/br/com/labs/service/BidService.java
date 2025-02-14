@@ -23,19 +23,19 @@ public class BidService {
     }
 
     public Mono<Bid> registerBid(Bid newBid) {
-        return auctionRepository.findById(1L)
+        return auctionRepository.findById(newBid.getAuctionId())
                 .switchIfEmpty(Mono.error(new RuntimeException("Leilão não encontrado")))
-                .flatMap(auction -> bidRepository.findByAuctionIdOrderByDateDesc(1L)
+                .flatMap(auction -> bidRepository.findByAuctionIdOrderByDateDesc(newBid.getAuctionId())
                         .collectList()
                         .flatMap(bids -> {
-                            /*
-                            if (!lances.isEmpty() && novoLance.getValor().compareTo(lances.get(0).getValor()) <= 0) {
+
+                            if (!bids.isEmpty() && newBid.getPrice().compareTo(bids.get(0).getPrice()) <= 0) {
                                 return Mono.error(new RuntimeException("O lance deve ser maior que o lance anterior."));
                             }
-                            if (novoLance.getValor().compareTo(leilao.getPrecoInicial()) < 0) {
+                            if (newBid.getPrice().compareTo(auction.getInitialValue()) < 0) {
                                 return Mono.error(new RuntimeException("O lance deve ser maior que o preço inicial do leilão."));
                             }
-                            */
+
                             return bidRepository.save(newBid);
                         })
                 );
