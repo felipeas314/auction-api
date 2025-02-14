@@ -6,5 +6,5 @@ import reactor.core.publisher.Flux;
 
 public interface BidRepository extends R2dbcRepository<Bid,Long> {
 
-    Flux<Bid> findByAuctionIdOrderByDataHoraDesc(Long auctionId);
+    Flux<Bid> findByAuctionIdOrderByDateDesc(Long auctionId);
 }
